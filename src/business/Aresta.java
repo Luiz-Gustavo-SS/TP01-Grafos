@@ -1,6 +1,6 @@
 package business;
 
-public class Aresta {
+public class Aresta implements Comparable<Aresta> {
 	private Vertice origem;
 	private Vertice destino;
 	private int custo;
@@ -16,6 +16,7 @@ public class Aresta {
 	}
 
 	public void setOrigem(Vertice origem) {
+		origem.addArestas(this);
 		this.origem = origem;
 	}
 
@@ -35,5 +36,8 @@ public class Aresta {
 		this.custo = custo;
 	}
 	
-	
+	@Override
+	public int compareTo(Aresta o) {
+		return this.custo - o.getCusto();
+	}
 }

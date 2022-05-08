@@ -6,7 +6,7 @@ public class Grafo {
 	private int numVertices=0;
 	private int numArestas=0;
 	
-	Grafo(){
+	public Grafo(){
 		vertices = new Vertice[1000];
 		arestas = new Aresta[16500];
 	}
@@ -23,6 +23,4 @@ public class Grafo {
 	public void addArestas(Aresta aresta) {
 		this.arestas[this.numArestas++] = aresta;
 	}
-	
-	
 }
