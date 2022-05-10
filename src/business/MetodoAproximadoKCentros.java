@@ -1,8 +1,7 @@
 package business;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MetodoAproximadoKCentros {
     private Grafo grafo;
@@ -30,39 +29,42 @@ public class MetodoAproximadoKCentros {
 
     private void executar() {
         centros[0] = grafo.getVertices()[0];
-        List<Map<Vertice, Integer>> distPossiveisVertices = new LinkedList<>();
-        for (int i = 1; i < qtdCentros; i++) {
-            distPossiveisVertices.add(new CaminhoMinimo(grafo, centros[i -1]).getDistancias());
-            centros[i] = escolherCentro(distPossiveisVertices);
+        Vertice[] vertices = grafo.getVertices();
+        raio = 0;
+        Map<Vertice, Integer> distPossiveisVertices = new TreeMap<>();
+        for (Vertice vertice : vertices) {
+            if(vertice != null) {
+                distPossiveisVertices.put(vertice, Integer.MAX_VALUE);
+            }
         }
+        for (int i = 1; i < qtdCentros; i++) {
+            centros[i] = escolherCentro(distPossiveisVertices, new CaminhoMinimo(grafo, centros[i - 1]).getDistancias());
+        }
+        calcularRaio(distPossiveisVertices);
     }
 
-    private Vertice escolherCentro(List<Map<Vertice, Integer>> distPossiveisVertices) {
-        raio = 0;
+    private Vertice escolherCentro(Map<Vertice, Integer> distPossiveisVertices, Map<Vertice, Integer> distNovoCentro) {
         Vertice[] vertices = grafo.getVertices();
         int maiorRaio = 0;
         Vertice escolhido = null;
         for (Vertice vertice : vertices) {
             if(vertice != null) {
-                int menorDist = calcularMenorDist(distPossiveisVertices, vertice);
+                int menorDist = calcularMenorDist(distPossiveisVertices, distNovoCentro, vertice);
+                distPossiveisVertices.replace(vertice, menorDist);
                 if(maiorRaio < menorDist) {
                     maiorRaio = menorDist;
                     escolhido = vertice;
                 }
             }
         }
-        for (Vertice vertice : vertices) {
-            if(vertice != null)
-                raio = Math.max(raio, calcularMenorDist(distPossiveisVertices, vertice));
-        }
         return escolhido;
     }
 
-    private int calcularMenorDist(List<Map<Vertice, Integer>> distPossiveisVertices, Vertice vertice) {
-        int menorDist = Integer.MAX_VALUE;
-        for(Map<Vertice, Integer> map : distPossiveisVertices) {
-            menorDist = Math.min(menorDist, map.get(vertice));
-        }
-        return menorDist;
+    private int calcularMenorDist(Map<Vertice, Integer> distPossiveisVertices, Map<Vertice, Integer> distNovoCentro, Vertice vertice) {
+        return Math.min(distPossiveisVertices.get(vertice), distNovoCentro.get(vertice));
+    }
+
+    private void calcularRaio(Map<Vertice, Integer> distPossiveisVertices) {
+        raio = distPossiveisVertices.get(escolherCentro(distPossiveisVertices, new CaminhoMinimo(grafo, centros[qtdCentros - 1]).getDistancias()));
     }
 }

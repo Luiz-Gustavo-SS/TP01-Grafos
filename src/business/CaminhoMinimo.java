@@ -15,7 +15,7 @@ public class CaminhoMinimo {
 
     private List<Vertice> verticesCorte;
 
-    private PriorityQueue<Aresta> arestasCorte;
+    private PriorityQueue<ArestaAux> arestasCorte;
 
     public CaminhoMinimo (Grafo grafo, Vertice verticeInicial) {
         this.grafo = grafo;
@@ -33,10 +33,10 @@ public class CaminhoMinimo {
     private void calcular () {
         setup();
 		while (arestasCorte.peek() != null) {
-            Aresta menorCusto = descobrirMenorCusto();
+            ArestaAux menorCusto = descobrirMenorCusto();
             if(menorCusto != null) {
-                Vertice verticeAssociado = menorCusto.getDestino();
-                distancias.put(verticeAssociado, menorCusto.getCusto());
+                Vertice verticeAssociado = menorCusto.aresta.getDestino();
+                distancias.replace(verticeAssociado, menorCusto.custoTotal);
                 verticesCorte.add(verticeAssociado);
                 descobrirArestasCorte(verticeAssociado);
             }
@@ -47,16 +47,16 @@ public class CaminhoMinimo {
         Aresta[] arestas = verticeDescoberto.getArestas();
         for (Aresta aresta : arestas) {
             if(aresta != null && !verticesCorte.contains(aresta.getDestino())) {
-                arestasCorte.add(aresta);
+                arestasCorte.add(new ArestaAux(aresta, aresta.getCusto() + distancias.get(verticeDescoberto)));
             }
         }
     }
 
-    private Aresta descobrirMenorCusto() {
-        Aresta menor = null;
+    private ArestaAux descobrirMenorCusto() {
+        ArestaAux menor = null;
         do {
             menor = arestasCorte.poll();
-        } while (menor != null && verticesCorte.contains(menor.getDestino()));
+        } while (menor != null && verticesCorte.contains(menor.aresta.getDestino()));
         return menor;
     }
 
@@ -70,5 +70,18 @@ public class CaminhoMinimo {
         distancias.replace(verticeInicial, 0);
 		verticesCorte.add(verticeInicial);
         descobrirArestasCorte(verticeInicial);
+    }
+
+    private class ArestaAux implements Comparable<ArestaAux> {
+        public Aresta aresta;
+        public int custoTotal;
+        public ArestaAux(Aresta aresta, int custoTotal) {
+            this.aresta = aresta;
+            this.custoTotal = custoTotal;
+        }
+        @Override
+        public int compareTo(ArestaAux o) {
+            return this.custoTotal - o.custoTotal;
+        }
     }
 }

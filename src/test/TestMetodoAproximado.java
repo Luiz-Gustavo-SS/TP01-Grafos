@@ -25,8 +25,8 @@ public class TestMetodoAproximado {
         grafo.addVertices(vertice3);
         grafo.addArestas(new Aresta(vertice0, vertice1, 10));
         grafo.addArestas(new Aresta(vertice1, vertice0, 10));
-        grafo.addArestas(new Aresta(vertice0, vertice2, 8));
-        grafo.addArestas(new Aresta(vertice2, vertice0, 8));
+        grafo.addArestas(new Aresta(vertice0, vertice2, 7));
+        grafo.addArestas(new Aresta(vertice2, vertice0, 7));
         grafo.addArestas(new Aresta(vertice0, vertice3, 6));
         grafo.addArestas(new Aresta(vertice3, vertice0, 6));
         grafo.addArestas(new Aresta(vertice1, vertice2, 8));
