@@ -25,6 +25,7 @@ public class Aresta implements Comparable<Aresta> {
 	}
 
 	public void setDestino(Vertice destino) {
+		destino.addArestas(this);
 		this.destino = destino;
 	}
 

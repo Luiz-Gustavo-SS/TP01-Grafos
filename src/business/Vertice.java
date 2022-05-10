@@ -7,7 +7,7 @@ public class Vertice implements Comparable<Vertice>{
 	
 	public Vertice(int id){
 		this.id=id;
-		arestas = new Aresta[5];
+		arestas = new Aresta[100];
 	}
 
 	public int getId() {

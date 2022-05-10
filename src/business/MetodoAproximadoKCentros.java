@@ -28,7 +28,7 @@ public class MetodoAproximadoKCentros {
     }
 
     private void executar() {
-        centros[0] = grafo.getVertices()[0];
+        centros[0] = grafo.getVerticeById(1);
         Vertice[] vertices = grafo.getVertices();
         raio = 0;
         Map<Vertice, Integer> distPossiveisVertices = new TreeMap<>();
