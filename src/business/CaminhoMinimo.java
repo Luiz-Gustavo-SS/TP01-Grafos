@@ -35,7 +35,12 @@ public class CaminhoMinimo {
 		while (arestasCorte.peek() != null) {
             ArestaAux menorCusto = descobrirMenorCusto();
             if(menorCusto != null) {
-                Vertice verticeAssociado = menorCusto.aresta.getDestino();
+                Vertice verticeAssociado;
+                if (verticesCorte.contains(menorCusto.aresta.getDestino())) {
+                    verticeAssociado = menorCusto.aresta.getOrigem();
+                } else {
+                    verticeAssociado = menorCusto.aresta.getDestino();
+                }
                 distancias.replace(verticeAssociado, menorCusto.custoTotal);
                 verticesCorte.add(verticeAssociado);
                 descobrirArestasCorte(verticeAssociado);
@@ -46,7 +51,7 @@ public class CaminhoMinimo {
     private void descobrirArestasCorte (Vertice verticeDescoberto) {
         Aresta[] arestas = verticeDescoberto.getArestas();
         for (Aresta aresta : arestas) {
-            if(aresta != null && !verticesCorte.contains(aresta.getDestino())) {
+            if(aresta != null && (!verticesCorte.contains(aresta.getDestino()) || !verticesCorte.contains(aresta.getOrigem()))) {
                 arestasCorte.add(new ArestaAux(aresta, aresta.getCusto() + distancias.get(verticeDescoberto)));
             }
         }
@@ -56,7 +61,7 @@ public class CaminhoMinimo {
         ArestaAux menor = null;
         do {
             menor = arestasCorte.poll();
-        } while (menor != null && verticesCorte.contains(menor.aresta.getDestino()));
+        } while (menor != null && verticesCorte.contains(menor.aresta.getDestino()) && verticesCorte.contains(menor.aresta.getOrigem()));
         return menor;
     }
 
