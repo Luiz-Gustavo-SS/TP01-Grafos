@@ -7,11 +7,11 @@ import java.util.Scanner;
 import business.*;
 
 public class App {
-	public static final String CAMINHO_INICIO = "D:\\repositorio_git\\TP01-Grafos\\src\\entradas\\pmed";
+	public static final String CAMINHO_INICIO = "C:\\Users\\LENOVO\\Desktop\\entradas de grafo\\src\\entradas\\pmed";
 	public static final String CAMINHO_FIM = ".txt";
 
 	public static void main(String[] args) {
-		for (int j = 1; j <= 40; j++) {
+		for (int j = 1; j <= 1; j++) {
 			String caminho = String.format("%s%02d%s", CAMINHO_INICIO, j, CAMINHO_FIM);
 			try (Scanner entrada = new Scanner(new FileReader(caminho))) {
 				/*
@@ -32,6 +32,8 @@ public class App {
 							new Aresta(grafo.getVerticeById(origem), grafo.getVerticeById(destino), pesoAresta));
 				}
 				MetodoAproximadoKCentros aprox = new MetodoAproximadoKCentros(grafo, kCentro);
+				Floyd f=new Floyd();
+				f.floydWarshall(grafo);
 				System.out.println(aprox.getRaio());
 			} catch (FileNotFoundException e) {
 				System.out.print("Arquivo nao encontrado");

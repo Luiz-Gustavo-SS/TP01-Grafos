@@ -15,6 +15,10 @@ public class Grafo {
 		return vertices;
 	}
 	
+	public int getNumVertices() {
+		return numVertices;
+	}
+
 	public Vertice getVerticeById(int id) {
 		return vertices[id];
 	}
@@ -33,5 +37,33 @@ public class Grafo {
 	
 	public void addArestas(Aresta aresta) {
 		this.arestas[++this.numArestas] = aresta;
+	}
+	public int[][] transformaMatriz()
+	{
+		int matriz[][]=new int[this.numVertices][this.numVertices];
+		for (int i=0;i<this.numVertices;i++)
+		{
+			for (int k=0;k<this.numVertices;k++)
+			{
+				matriz[i][k]=99999;
+				if (i==k)
+				{
+					matriz[i][k]=0;
+				}
+				else {
+				for (Aresta a:arestas)
+				{
+					if (a!=null)
+					{
+						if (a.getOrigem()==vertices[i+1]&&a.getDestino()==vertices[k+1])
+						{
+							matriz[i][k]=a.getCusto();
+						}
+					}
+				}
+			}
+		}
+	}
+		return matriz;
 	}
 }
