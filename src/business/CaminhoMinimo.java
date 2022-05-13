@@ -30,6 +30,16 @@ public class CaminhoMinimo {
         return distancias;
     }
 
+    public static Map<Vertice, Map<Vertice, Integer>> getAll(Grafo grafo) {
+        Map<Vertice, Map<Vertice, Integer>> resp = new TreeMap<>();
+        for (Vertice vertice : grafo.getVertices()) {
+            if(vertice != null) {
+                resp.put(vertice, new CaminhoMinimo(grafo, vertice).getDistancias());
+            }
+        }
+        return resp;
+    }
+
     private void calcular () {
         setup();
 		while (arestasCorte.peek() != null) {
