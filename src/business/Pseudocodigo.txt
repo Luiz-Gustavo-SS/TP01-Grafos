@@ -1,0 +1,21 @@
+Input:	A complete weighted graph G = (V, E), a positive integer k, a capacity function f cap : V -> N, 
+		and an ordered list of the |E| edge weights of G: w (e1), w(e2), ..., w(e|E|), where w(ei) <= w(ei+ 1 )
+
+Output: A set of vertices C contido V, |C|<=k, and an assignment function fC : V \ C -> C
+			
+	high=|E|;
+	low=1;
+	while(high − low ≥ 1) do	{
+		mid = d(high + low)/2e ;
+		(C,fC) = Any capacitated dominating set (D,fD) over Gw(emid), if |D| <= k
+			 A minimum capacitated dominating set ( D, f D ) over Gw(emid ) , otherwise
+		if (mid = high) then{
+			low = high ;
+		}
+		if (|C| <= k) then{
+			high = mid;
+		} else {
+			low = mid ;
+		}
+	}
+	return (C, f C ) ;

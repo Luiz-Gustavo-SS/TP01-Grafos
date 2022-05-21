@@ -2,12 +2,14 @@ package app;
 
 import java.io.FileReader;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import business.*;
 
 public class App {
-	public static final String CAMINHO_INICIO = "C:\\Users\\LENOVO\\Desktop\\entradas de grafo\\src\\entradas\\pmed";
+	public static final String CAMINHO_INICIO = "D:\\Eclipse\\tp_grafos\\src\\entradas\\pmed";
 	public static final String CAMINHO_FIM = ".txt";
 
 	public static void main(String[] args) {
@@ -31,10 +33,15 @@ public class App {
 					grafo.addArestas(
 							new Aresta(grafo.getVerticeById(origem), grafo.getVerticeById(destino), pesoAresta));
 				}
-				MetodoAproximadoKCentros aprox = new MetodoAproximadoKCentros(grafo, kCentro);
-				Floyd f=new Floyd();
-				f.floydWarshall(grafo);
-				System.out.println(aprox.getRaio());
+				/*
+				 * System.out.println("["+grafo.transformaMatriz()[0][0]+"]");
+				 * System.out.println("["+grafo.transformaMatriz()[0][1]+"]");
+				 */
+				// MetodoAproximadoKCentros aprox = new MetodoAproximadoKCentros(grafo,
+				// kCentro);
+				// System.out.println(aprox.getRaio());
+				// Floyd f=new Floyd();
+				// f.floydWarshall(grafo);
 			} catch (FileNotFoundException e) {
 				System.out.print("Arquivo nao encontrado");
 			}

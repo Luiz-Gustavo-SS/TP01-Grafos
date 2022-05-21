@@ -29,7 +29,7 @@ public class CaminhoMinimo {
     public Map<Vertice, Integer> getDistancias() {
         return distancias;
     }
-
+    
     public static Map<Vertice, Map<Vertice, Integer>> getAll(Grafo grafo) {
         Map<Vertice, Map<Vertice, Integer>> resp = new TreeMap<>();
         for (Vertice vertice : grafo.getVertices()) {
